@@ -1,10 +1,10 @@
 
-# an array of student names
+# an array of student names using hashes
 stu_names = [
-			"Biwek Shrestha",
-			"Nabin",
-			"James",
-			"Andrey"
+			{:name => "Biwek Shrestha", :cohort => :january},
+			{:name => "Nabin", :cohort => :january},
+			{:name => "James", :cohort => :january},
+			{:name => "Andrey", :cohort => :january}
 			]
 
 # prints headers
@@ -17,7 +17,7 @@ end
 # using iteration
 def print_student_names(stu_list)
 	stu_list.each do |name|
-		puts name
+		puts "#{name[:name]}  (#{name[:cohort]} cohort)"
 	end
 end
 
