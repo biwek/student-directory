@@ -19,6 +19,4 @@ end
 
 
 #prints the number of students
-print "Overall, there are "
-print stu_names.length
-puts " students"
+puts "Overall, there are #{stu_names.length} students"
