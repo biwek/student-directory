@@ -76,21 +76,17 @@ def list_by_cohort(stu_list)
 
 	grouped_cohort_list=[]
 
-	#[biwek, shrestha, nabin, rai]
 	# gets similar cohorts - removes duplicate values & creates an array containing unique values
-	cohort_list = stu_list.map { |student| student[:cohort]}.uniq	#[jan, feb]
-	i = 0
-	while i < stu_list.length #[4]
+	#cohort_list = stu_list.map { |student| student[:cohort]}.uniq	#[jan, feb]
+	sorted = stu_list.sort {|one, another| one[:cohort] <=> another[:cohort]}
+	list_student_names(sorted)
+	#i = 0
+	#while i < stu_list.length #[4]
 		# get list of users starting from a particular cohort
-		list_student_names(stu_list.select { |field| field[:cohort] == cohort_list[i] })
+	#	 list_student_names(stu_list.select { |field| field[:cohort] == cohort_list[i] })
 
-		#grouped_cohort_list.push(par_cohort_list)
-
-		i += 1
-	end
-
-	#return grouped_cohort_list.inspect
-
+	# 	i += 1
+	# end
 
 end
 
