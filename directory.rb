@@ -12,7 +12,7 @@ puts "----------------"
 puts "List of students"
 puts "----------------"
 
-# use a loop
+# using iteration
 stu_names.each do |name|
 	puts name
 end
