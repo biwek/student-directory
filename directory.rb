@@ -7,6 +7,8 @@ stu_names = [
 			{:name => "Andrey", :cohort => :january}
 			]
 
+students = []
+
 # prints headers
 def print_header
 	puts "----------------"
@@ -15,10 +17,16 @@ def print_header
 end
 
 # using iteration
-def print_student_names(stu_list)
-	stu_list.each do |name|
-		puts "#{name[:name]}  (#{name[:cohort]} cohort)"
+def input_student_name(stu_list)
+	puts "Please enter a name:"
+	puts "Enter twice to exit the program"
+	name = gets.chomp
+	while !name.empty?
+		stu_list.push(name)
+		puts "So far we have #{stu_list.length} students"
+		name = gets.chomp
 	end
+	return stu_list
 end
 
 
@@ -29,6 +37,6 @@ end
 
 # using the methods
 print_header
-print_student_names(stu_names)
-print_student_length(stu_names)
+input_student_name(students)
+print_student_length(students)
 
