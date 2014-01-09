@@ -1,12 +1,4 @@
 
-# an array of student names using hashes
-stu_names = [
-			{:name => "Biwek Shrestha", :cohort => :january},
-			{:name => "Nabin", :cohort => :january},
-			{:name => "James", :cohort => :january},
-			{:name => "Andrey", :cohort => :january}
-			]
-
 students = []
 
 # prints headers
