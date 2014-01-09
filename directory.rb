@@ -29,14 +29,14 @@ def print_student_length(stu_list)
 end
 
 def list_student_names(stu_list)
-	stu_list.each_with_index do |student, i|
-		puts "#{i+1} - #{student[:name]} (#{student[:cohort]} cohort)"
-	end
-	#i = 0
-	#while i < stu_list.length 
-	#	puts "#{i+1} - #{stu_list[i]}"
-	#	i += 1
-	#end 
+	#stu_list.each_with_index do |student, i|
+	#	puts "#{i+1} - #{student[:name]} (#{student[:cohort]} cohort)"
+	#end
+	i = 0
+	while i < stu_list.length 
+		puts "#{i+1} - #{stu_list[i][:name]} (#{stu_list[i][:cohort]} cohort)"
+		i += 1
+	end 
 end
 
 def list_A_names(stu_list)
@@ -53,16 +53,45 @@ def enter_student_details(stu_list)
 
 	while !name.empty?
 		print "Please enter your cohort: "
-		cohort = gets.chomp
+		cohort = gets.delete "\n"
+
+		cohort = "Jan" if cohort.empty?
 
 		stu_list << { :name => name, :cohort => cohort.to_sym}
 
 		#stu_list.push(name)
-		puts "So far we have #{stu_list.length} students"
+		if stu_list.length == 1
+			puts "So far we have #{stu_list.length} student"
+		else
+			puts "So far we have #{stu_list.length} students"
+		end
+
 		print "Please enter a name: "
-		name = gets.chomp
+		name = gets.delete "\n"
 	end
 	return stu_list
+end
+
+def list_by_cohort(stu_list)
+
+	grouped_cohort_list=[]
+
+	#[biwek, shrestha, nabin, rai]
+	# gets similar cohorts - removes duplicate values & creates an array containing unique values
+	cohort_list = stu_list.map { |student| student[:cohort]}.uniq	#[jan, feb]
+	i = 0
+	while i < stu_list.length #[4]
+		# get list of users starting from a particular cohort
+		list_student_names(stu_list.select { |field| field[:cohort] == cohort_list[i] })
+
+		#grouped_cohort_list.push(par_cohort_list)
+
+		i += 1
+	end
+
+	#return grouped_cohort_list.inspect
+
+
 end
 
 
@@ -74,5 +103,6 @@ print_header
 #list_12(students)
 #list_A_names(students)
 enter_student_details(students)
-list_student_names(students)
+puts list_by_cohort(students)
+#list_student_names(students)
 
