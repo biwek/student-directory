@@ -53,7 +53,7 @@ def enter_student_details(stu_list)
 
 	while !name.empty?
 		print "Please enter your cohort: "
-		cohort = gets.delete "\n"
+		cohort = gets.chomp
 
 		cohort = "Jan" if cohort.empty?
 
@@ -67,38 +67,65 @@ def enter_student_details(stu_list)
 		end
 
 		print "Please enter a name: "
-		name = gets.delete "\n"
+		name = gets.chomp
 	end
 	return stu_list
 end
 
+
 def list_by_cohort(stu_list)
 
-	grouped_cohort_list=[]
-
 	# gets similar cohorts - removes duplicate values & creates an array containing unique values
-	#cohort_list = stu_list.map { |student| student[:cohort]}.uniq	#[jan, feb]
 	sorted = stu_list.sort {|one, another| one[:cohort] <=> another[:cohort]}
 	list_student_names(sorted)
+
+	#cohort_list = stu_list.map { |student| student[:cohort]}.uniq	#[jan, feb]
 	#i = 0
 	#while i < stu_list.length #[4]
 		# get list of users starting from a particular cohort
 	#	 list_student_names(stu_list.select { |field| field[:cohort] == cohort_list[i] })
-
 	# 	i += 1
 	# end
-
 end
 
+def interactive_menu
+	students = []
+	loop do
+		# Print Menu For The User
+		puts "---------------------"
+		puts "1. Input the Students"
+		puts "2. Show the Students"
+		puts "9. Exit"
+		puts "---------------------"
+
+		# User Choice
+		selected = gets.chomp
+
+		# Do What User Asked
+		case selected
+		when "1"
+			enter_student_details(students)
+		when "2"
+			print_header
+			list_student_names(students)
+		when "9"
+			exit
+		else
+			puts "\nWRONG INPUT. Please, Try Again!\n"
+		end
+	end
+end
+
+interactive_menu
 
 
 # using the methods
-print_header
-#input_student_name(students)
-#print_student_length(students)
-#list_12(students)
-#list_A_names(students)
-enter_student_details(students)
-puts list_by_cohort(students)
-#list_student_names(students)
+# print_header
+# #input_student_name(students)
+# #print_student_length(students)
+# #list_12(students)
+# enter_student_details(students)
+# # list_A_names(students)
+# puts list_by_cohort(students)
+# #list_student_names(students)
 
