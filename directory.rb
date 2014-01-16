@@ -1,6 +1,5 @@
 
-
-students = []
+@students = []
 
 # prints headers
 def print_header
@@ -24,17 +23,17 @@ end
 
 
 # prints the number of students
-def print_student_length(stu_list)
-	puts "Overall, there are #{stu_list.length} students"
+def print_student_length
+	puts "Overall, there are #{@students.length} students"
 end
 
-def list_student_names(stu_list)
+def list_student_names
 	#stu_list.each_with_index do |student, i|
 	#	puts "#{i+1} - #{student[:name]} (#{student[:cohort]} cohort)"
 	#end
 	i = 0
-	while i < stu_list.length 
-		puts "#{i+1} - #{stu_list[i][:name]} (#{stu_list[i][:cohort]} cohort)"
+	while i < @students.length 
+		puts "#{i+1} - #{@students[i][:name]} (#{@students[i][:cohort]} cohort)"
 		i += 1
 	end 
 end
@@ -47,7 +46,7 @@ def list_12(stu_list)
 	list_student_names(stu_list.select { |name| name.length < 12 })
 end
 
-def enter_student_details(stu_list)
+def enter_student_details
 	print "Please enter a name: "
 	name = gets.chomp
 
@@ -57,19 +56,19 @@ def enter_student_details(stu_list)
 
 		cohort = "Jan" if cohort.empty?
 
-		stu_list << { :name => name, :cohort => cohort.to_sym}
+		@students << { :name => name, :cohort => cohort.to_sym}
 
 		#stu_list.push(name)
-		if stu_list.length == 1
-			puts "So far we have #{stu_list.length} student"
+		if @students.length == 1
+			puts "So far we have #{@students.length} student"
 		else
-			puts "So far we have #{stu_list.length} students"
+			puts "So far we have #{@students.length} students"
 		end
 
 		print "Please enter a name: "
 		name = gets.chomp
 	end
-	return stu_list
+	return @students
 end
 
 
@@ -88,44 +87,43 @@ def list_by_cohort(stu_list)
 	# end
 end
 
-def interactive_menu
-	students = []
-	loop do
-		# Print Menu For The User
-		puts "---------------------"
-		puts "1. Input the Students"
-		puts "2. Show the Students"
-		puts "9. Exit"
-		puts "---------------------"
+def print_menu
+	puts "---------------------"
+	puts "1. Input the Students"
+	puts "2. Show the Students"
+	puts "9. Exit"
+	puts "---------------------"
+end
 
-		# User Choice
-		selected = gets.chomp
+def show_students
+	print_header
+	list_student_names
+	print_student_length
+end
 
-		# Do What User Asked
-		case selected
+def process(selected)
+	case selected
 		when "1"
-			enter_student_details(students)
+			enter_student_details
 		when "2"
-			print_header
-			list_student_names(students)
+			show_students
 		when "9"
 			exit
 		else
 			puts "\nWRONG INPUT. Please, Try Again!\n"
-		end
+	end
+end
+
+def interactive_menu
+	loop do
+		# Print Menu For The User
+		print_menu
+
+		# User Chooses and Do What The User Asked
+		process(gets.chomp)
+		
 	end
 end
 
 interactive_menu
-
-
-# using the methods
-# print_header
-# #input_student_name(students)
-# #print_student_length(students)
-# #list_12(students)
-# enter_student_details(students)
-# # list_A_names(students)
-# puts list_by_cohort(students)
-# #list_student_names(students)
 
