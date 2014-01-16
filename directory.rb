@@ -92,6 +92,7 @@ def print_menu
 	puts "1. Input the Students"
 	puts "2. Show the Students"
 	puts "3. Save student to CSV file"
+	puts "4. Load the list from students.csv"
 	puts "9. Exit"
 	puts "---------------------"
 end
@@ -110,6 +111,8 @@ def process(selected)
 			show_students
 		when "3"
 			save_students
+		when "4"
+			load_students
 		when "9"
 			exit
 		else
