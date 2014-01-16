@@ -111,6 +111,8 @@ def process(selected)
 			show_students
 		when "3"
 			save_students
+		when "4"
+			load_students
 		when "9"
 			exit
 		else
