@@ -92,6 +92,7 @@ def print_menu
 	puts "1. Input the Students"
 	puts "2. Show the Students"
 	puts "3. Save student to CSV file"
+	puts "4. Load the list from students.csv"
 	puts "9. Exit"
 	puts "---------------------"
 end
