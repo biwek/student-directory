@@ -8,19 +8,9 @@ def print_header
 	puts "----------------"
 end
 
-# using iteration
-def input_student_name(stu_list)
-	puts "Please enter a name:"
-	puts "Enter twice to exit the program"
-	name = STDIN.gets.chomp
-	while !name.empty?
-		stu_list.push(name)
-		puts "So far we have #{stu_list.length} students"
-		name = gets.chomp
-	end
-	return stu_list
+def add_student(name, cohort)
+	@students << { :name => name, :cohort => cohort.to_sym}
 end
-
 
 # prints the number of students
 def print_student_length
@@ -28,22 +18,17 @@ def print_student_length
 end
 
 def list_student_names
-	#stu_list.each_with_index do |student, i|
-	#	puts "#{i+1} - #{student[:name]} (#{student[:cohort]} cohort)"
-	#end
-	i = 0
-	while i < @students.length 
-		puts "#{i+1} - #{@students[i][:name]} (#{@students[i][:cohort]} cohort)"
-		i += 1
-	end 
+	@students.each_with_index do |student, i|
+		puts "#{i+1} - #{student[:name]} (#{student[:cohort]} cohort)"
+	end
 end
 
-def list_A_names(stu_list)
-	list_student_names(stu_list.select { |name| name.slice(0) == "A" })
+def list_A_names
+	list_student_names(@students.select { |name| name.slice(0) == "A" })
 end
 
-def list_12(stu_list)
-	list_student_names(stu_list.select { |name| name.length < 12 })
+def list_12
+	list_student_names(@students.select { |name| name.length < 12 })
 end
 
 def enter_student_details
@@ -56,7 +41,7 @@ def enter_student_details
 
 		cohort = "Jan" if cohort.empty?
 
-		@students << { :name => name, :cohort => cohort.to_sym}
+		add_student(name, cohort)
 
 		#stu_list.push(name)
 		if @students.length == 1
@@ -72,19 +57,10 @@ def enter_student_details
 end
 
 
-def list_by_cohort(stu_list)
-
+def list_by_cohort
 	# gets similar cohorts - removes duplicate values & creates an array containing unique values
-	sorted = stu_list.sort {|one, another| one[:cohort] <=> another[:cohort]}
+	sorted = @students.sort {|one, another| one[:cohort] <=> another[:cohort]}
 	list_student_names(sorted)
-
-	#cohort_list = stu_list.map { |student| student[:cohort]}.uniq	#[jan, feb]
-	#i = 0
-	#while i < stu_list.length #[4]
-		# get list of users starting from a particular cohort
-	#	 list_student_names(stu_list.select { |field| field[:cohort] == cohort_list[i] })
-	# 	i += 1
-	# end
 end
 
 def print_menu
@@ -124,10 +100,8 @@ def interactive_menu
 	loop do
 		# Print Menu For The User
 		print_menu
-
 		# User Chooses and Do What The User Asked
 		process(STDIN.gets.chomp)
-		
 	end
 end
 
@@ -148,7 +122,7 @@ def load_students(filename="students.csv")
 	file = File.open(filename, "r")
 	file.readlines.each do |line|
 		name, cohort = line.chomp.split(",")
-		@students << {:name => name, :cohort => cohort.to_sym}
+		add_student(name, cohort)
 	end
 	file.close
 end
@@ -163,11 +137,9 @@ def try_load_students
 		puts "Sorry, #{filename} does NOT exist."
 		Exit
 	end
-
 end
 
 try_load_students
 interactive_menu
-
 
 
